@@ -1,5 +1,4 @@
 import React from "react";
-
 import photo from "../img/homePageImg.jpg";
 
 const HomePage = () => {

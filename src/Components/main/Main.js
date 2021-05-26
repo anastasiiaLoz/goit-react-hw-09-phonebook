@@ -1,11 +1,13 @@
 import React, { Suspense } from "react";
 import { Switch } from "react-router";
+import { getAuthSelector } from "../../redux/auth/authSelectors";
 import mainRoutes from "../../routes/mainRoutes";
 import PrivateRoute from "../../routes/PrivateRoute";
 import PublicRoute from "../../routes/PublicRoute";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const Main = ({ isAuth }) => {
+export default function Main() {
+  const isAuth = useSelector(getAuthSelector);
   return (
     <Suspense fallback={<h2>LOADING...</h2>}>
       <Switch>
@@ -19,12 +21,4 @@ const Main = ({ isAuth }) => {
       </Switch>
     </Suspense>
   );
-};
-
-const mapStateToProps = state => {
-  return {
-    isAuth: state.auth.tokens?.idToken
-  };
-};
-
-export default connect(mapStateToProps)(Main);
+}

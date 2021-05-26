@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const NavigationListItem = ({ item, location, isAuth }) => {
-  // console.log(item);
   return (
     <>
       {!item.isPrivate && !item.isRestricted && (

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { loginError, loginSuccess, registerError, registerRequest, registerSuccess, loginRequest } from "./authActions";
 
-const API_KEY = process.env.REACT_APP_API_KEY;
+// const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = "AIzaSyCuBVG9woxvOVJflwnDKGuzJwOkEVviJZg";
 
 export const register = user => async dispatch => {
   dispatch(registerRequest());

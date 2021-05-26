@@ -1,32 +1,31 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { StyledContactsList } from "./StyledContactsList";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteContactOperation } from "../../redux/contacts/operations";
+import { getFilteredContacts } from "../../redux/contacts/selectors";
 
-const ContactsList = ({ contacts, deleteContact }) => {
-    return (
-        <StyledContactsList>
-            <ul>
-                {contacts.map(contact => (
-                    <li className="styled-contact-li"
-                        key={contact.id}>
-                        <p>{contact.name}:</p>
-                        <p>{contact.number}</p>
-                        <button type="button" onClick={deleteContact} id={contact.id}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </StyledContactsList>
-    );
-};
+export default function ContactsList() {
+  const dispatch = useDispatch();
+  const contacts = useSelector(getFilteredContacts);
 
-ContactsList.propTypes = {
-    deleteContact: PropTypes.func.isRequired,
-    contacts: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        name: PropTypes.string,
-        number: PropTypes.string,
-    }).isRequired),
+  const deleteContact = async e => {
+    const { id } = e.target;
+    dispatch(deleteContactOperation(id));
+  };
+
+  return (
+    <StyledContactsList>
+      <ul>
+        {contacts.map(contact => (
+          <li className="styled-contact-li" key={contact.id}>
+            <p>{contact.name}:</p>
+            <p>{contact.number}</p>
+            <button type="button" onClick={deleteContact} id={contact.id}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </StyledContactsList>
+  );
 }
-
-
-export default ContactsList;

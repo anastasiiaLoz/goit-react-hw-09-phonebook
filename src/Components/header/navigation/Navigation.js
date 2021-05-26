@@ -1,11 +1,17 @@
 import React from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { logOut } from "../../../redux/auth/authActions";
 import mainRoutes from "../../../routes/mainRoutes";
 import NavigationListItem from "../navigation/NavigationListItem";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { getAuthSelector } from "../../../redux/auth/authSelectors";
 
-const Navigation = ({ location, logOut, isAuth }) => {
+export default function Navigation() {
+  const isAuth = useSelector(getAuthSelector);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const logOutSession = () => dispatch(logOut());
+
   return (
     <div className="p-15 h-3.75 bg-transparent">
       <ul className="flex space-x-3 justify-between items-center">
@@ -15,7 +21,7 @@ const Navigation = ({ location, logOut, isAuth }) => {
 
         {isAuth && (
           <li>
-            <button type="button" onClick={() => logOut()}>
+            <button type="button" onClick={() => logOutSession()}>
               Log Out
             </button>
           </li>
@@ -23,13 +29,4 @@ const Navigation = ({ location, logOut, isAuth }) => {
       </ul>
     </div>
   );
-};
-
-const mstp = state => ({
-  isAuth: state.auth.tokens?.idToken
-});
-
-export default connect(
-  mstp,
-  { logOut }
-)(withRouter(Navigation));
+}

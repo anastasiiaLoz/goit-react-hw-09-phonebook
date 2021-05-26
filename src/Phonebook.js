@@ -17,15 +17,6 @@ class Contacts extends Component {
     this.props.addContactOperation(contact);
   };
 
-  deleteContact = async e => {
-    const { id } = e.target;
-    this.props.deleteContactOperation(id);
-  };
-
-  onCheckDuplicateName = name => {
-    return this.props.contacts.some(contact => contact.name === name);
-  };
-
   setFilter = e => {
     const { value } = e.target;
     console.log(value);
